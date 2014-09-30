@@ -25,6 +25,18 @@
             owner=root group=root
   tags: [quassel]
 
+- name: Copy over firewalld service file
+  copy: src=quasselcore-firewalld-service.xml dest=/etc/firewalld/services/quasselcore.xml
+            owner=root group=root mode=0640
+  when: use_firewalld
+  tags: [quassel]
+
+- name: Add quasselcore to the firewalld public zone
+  firewalld: service=quasselcore permanent=true state=enabled
+  when: use_firewalld
+  notify: Reload firewalld
+  tags: [quassel]
+
 - name: Enable quasselcore service
   service: name=quasselcore enabled=yes state=started
   tags: [quassel]

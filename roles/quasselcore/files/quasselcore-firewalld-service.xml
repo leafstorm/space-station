@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>Quassel Core</short>
+  <description>Quassel multi-client IRC server.</description>
+  <port protocol="tcp" port="4242"/>
+</service>
+

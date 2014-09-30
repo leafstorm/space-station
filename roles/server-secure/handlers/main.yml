@@ -1,0 +1,4 @@
+---
+- name: Reload firewalld
+  command: firewall-cmd --reload
+
