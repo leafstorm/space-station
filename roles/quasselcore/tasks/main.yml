@@ -1,0 +1,31 @@
+---
+- name: Create the quassel user
+  user: name=quassel state=present system=yes
+  tags: [quassel]
+
+- name: Install quassel-core
+  yum: name=quassel-core state=latest
+  tags: [quassel, packages]
+
+- name: Create configuration directory
+  file: path=/home/quassel/config state=directory
+            owner=quassel group=quassel mode=0700
+  tags: [quassel]
+
+- name: Generate SSL certificate
+  command: openssl req -x509 -nodes -days 365 -newkey rsa:4096
+            -subj "{{ ssl_dn_prefix }}/CN={{ ansible_fqdn }}"
+            -keyout /home/quassel/config/quasselCert.pem
+            -out /home/quassel/config/quasselCert.pem
+            creates=/home/quassel/config/quasselCert.pem
+  tags: [quassel]
+
+- name: Copy over systemd service file
+  copy: src=quasselcore.service dest=/etc/systemd/system/quasselcore.service
+            owner=root group=root
+  tags: [quassel]
+
+- name: Enable quasselcore service
+  service: name=quasselcore enabled=yes state=started
+  tags: [quassel]
+

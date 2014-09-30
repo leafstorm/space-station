@@ -1,0 +1,29 @@
+---
+- name: Download logwatch and fail2ban
+  yum: name={{ item }} state=latest
+  tags: [security, packages]
+
+  with_items:
+  - logwatch
+  - fail2ban
+
+- name: Configure logwatch
+  template: src=logwatch.conf dest=/etc/logwatch/conf/logwatch.conf
+                owner=root group=root mode=0644
+  tags: [security, logwatch]
+
+- name: Configure fail2ban
+  template: src=fail2ban.jail.conf dest=/etc/fail2ban/jail.local
+                owner=root group=root mode=0644
+  register: fail2ban_jail_conf
+  tags: [security, fail2ban]
+
+- name: Enable firewalld service
+  service: name=firewalld enabled=yes state=started
+  tags: [security]
+
+- name: Enable fail2ban service
+  service: name=fail2ban enabled=yes
+                state={{ 'restarted' if fail2ban_jail_conf.changed else 'started' }}
+  tags: [security, fail2ban]
+

@@ -1,0 +1,18 @@
+---
+- name: My Space Station
+  hosts: ghost.example.com
+  user: root
+
+  vars:
+    admin_email:    ghost@example.com
+    ssl_dn_prefix:  /C=US/O=Ghost Corporation
+
+  roles:
+    - server-tools
+    - server-secure
+    - role: user
+      name: matthew
+      full_name: Matthew Frazier
+      email: leafstormrush@gmail.com
+    - quasselcore
+

@@ -1,0 +1,71 @@
+---
+- name: "Install EPEL access package"
+  yum: name=epel-release state=latest
+  tags: [packages]
+
+- name: "Install fish Build Service repository"
+  command: yum-config-manager --add-repo http://fishshell.com/files/linux/RedHat_RHEL-6/fish.release:2.repo
+           creates=/etc/yum.repos.d/fish.release:2.repo
+  tags: [packages, tools]
+
+- name: "Install parallel Build Service repository"
+  command: yum-config-manager --add-repo http://download.opensuse.org/repositories/home:/tange/RedHat_RHEL-6/home:tange.repo
+           creates=/etc/yum.repos.d/home:tange.repo
+  tags: [packages, tools]
+
+- name: "Install basic system packages"
+  yum: name={{ item }} state=latest
+  tags: [packages, tools]
+
+  with_items:
+  # Basic environment
+  - nano
+  - fish
+  - tmux
+  - man-pages
+
+  # File management tools
+  - ack
+  - tree
+  - dos2unix
+  - parallel
+  - unzip
+  - zip
+
+  # Network tools
+  - openssh
+  - rsync
+  - wget
+  - traceroute
+  - iputils
+  - bind-utils
+  #- iperf
+  - lynx
+  - whois
+  - telnet
+  - nmap
+
+  # Development tools
+  - ansible
+  - git
+  - subversion
+  - mercurial
+  #- cloc
+  - colordiff
+
+  # Programming runtimes
+  - "'@C Development Tools and Libraries'"
+  - cmake
+  - lua
+  - nodejs
+  - npm
+  - php-cli
+  - python
+  - python-devel
+  - python-pip
+  - python-virtualenv
+  - ruby
+  - ruby-devel
+  - rubygems
+  - rubygem-bundler
+

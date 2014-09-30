@@ -1,0 +1,31 @@
+---
+- name: "Create the user"
+  user: name={{ name }} state=present shell=/usr/bin/fish
+        groups=wheel,adm append=yes
+  # I'll use the SSH key to log in...
+  tags: [user-profile]
+
+- name: "Add an SSH key to user account"
+  authorized_key: user={{ name }}
+                  key="{{ lookup('file', '/home/' ~ name ~ '/.ssh/id_rsa.pub') }}"
+  tags: [user-profile]
+
+- name: "Copy over user config files"
+  copy: src={{ item }} dest=/home/{{ name }}/.{{ item }}
+        owner={{ name }} group={{ name }} force=no
+  tags: [user-profile]
+
+  with_items:
+  - ackrc
+  - config/fish
+  - nanorc
+  - tmux.conf
+
+- name: "Copy over templated user config files"
+  template: src={{ item }} dest=/home/{{ name }}/.{{ item }}
+        owner={{ name }} group={{ name }} force=no
+  tags: [user-profile]
+
+  with_items:
+  - gitconfig
+

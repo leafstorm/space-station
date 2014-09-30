@@ -1,0 +1,12 @@
+[Unit]
+Description=Quassel IRC Core
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/quasselcore -c /home/quassel/config
+User=quassel
+WorkingDirectory=/home/quassel
+
+[Install]
+WantedBy=multi-user.target
+

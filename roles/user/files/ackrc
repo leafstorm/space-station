@@ -1,0 +1,6 @@
+--sort-file
+
+--pager=less -R
+
+--type-set=fish:ext:fish
+--type-set=twig:ext:twig
