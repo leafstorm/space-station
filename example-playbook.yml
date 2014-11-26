@@ -8,6 +8,7 @@
     ssl_dn_prefix:  /C=US/O=Ghost Corporation
 
   roles:
+    - firewalld
     - server-tools
     - server-secure
     - tarsnap

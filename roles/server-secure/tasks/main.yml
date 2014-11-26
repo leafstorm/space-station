@@ -18,10 +18,6 @@
   register: fail2ban_jail_conf
   tags: [security, fail2ban]
 
-- name: Enable firewalld service
-  service: name=firewalld enabled=yes state=started
-  tags: [security]
-
 - name: Enable fail2ban service
   service: name=fail2ban enabled=yes
                 state={{ 'restarted' if fail2ban_jail_conf.changed else 'started' }}

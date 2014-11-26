@@ -25,6 +25,9 @@ How to Use
 
 Roles
 =====
+* `firewalld` turns on firewalld, and provides a `Restart firewalld` handler
+  for everyone else to use.
+
 * `server-tools` installs some packages I like. (All of these are in Fedora,
   but I had to add a couple of OpenSUSE Build Service repositories to get
   them on CentOS.)
