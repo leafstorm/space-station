@@ -1,0 +1,10 @@
+[Unit]
+Description=Triggers backups every night (system time)
+
+[Timer]
+OnCalendar=3:45
+Unit=nightly-backups.target
+
+[Install]
+WantedBy=timers.target
+

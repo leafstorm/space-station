@@ -1,0 +1,32 @@
+#!/bin/bash
+# Install tarsnap.
+# Usage: script version sha256
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+# Create a temporary working directory.
+
+dir=`mktemp -td tarsnap.XXXXX`
+cd $dir
+
+# Download our desired Tarsnap release.
+
+wget https://www.tarsnap.com/download/tarsnap-autoconf-$1.tgz
+echo SHA256 '('tarsnap-autoconf-$1.tgz')' = $2 | sha256sum -c --quiet
+
+# Unpack it and start building!
+
+tar -xvf tarsnap-autoconf-$1.tgz
+cd tarsnap-autoconf-$1
+
+./configure --prefix=/usr/local
+make all
+make install
+
+# Clean up...
+
+cd
+rm -rf $dir
+

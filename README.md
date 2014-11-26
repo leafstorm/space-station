@@ -33,6 +33,19 @@ Roles
   The default configuration is really nice, so they work pretty much out
   of the box.
 
+* `tarsnap` builds and installs Tarsnap and Tarsnapper, for backups.
+  It doesn't create a key, since that requires your account password:
+  after running the playbook, log in and run (as root)
+  `tarsnap-keygen --keyfile /root/tarsnap.key`.
+
+* `tarsnap-nightly` provides some additional systemd support for running
+  nightly backups. Any service wanted by `nightly-backups.target` gets run at
+  3:45 AM. And, if you create a Tarsnapper configuration file named
+  `/etc/tarsnapper.d/foo.yml` and enable the `tarsnapper@foo.service` unit,
+  it automatically gets pulled in to the `nightly-backups` target.
+  (This hasn't been fully tested yet, because I don't have roles that
+  generate data worth backing up!)
+
 * `user` creates my configuration files. (Note that installing the SSH key
   currently assumes that there's an account on the machine you're running
   Ansible from that contains that SSH key. You may have to tweak this a bit.)

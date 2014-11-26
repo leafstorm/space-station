@@ -1,0 +1,14 @@
+---
+- name: "Tarsnapper configuration file directory for nightly backups"
+  file: path=/etc/tarsnapper.d state=directory owner=root group=root mode=0755
+  tags: [tarsnap, tarsnap-nightly]
+
+- name: "Nightly backup systemd units"
+  copy: src={{ item }} dest=/etc/systemd/system/{{ item }} owner=root group=root mode=0644
+  with_items: [nightly-backups.timer, nightly-backups.target, tarsnapper@.service]
+  tags: [tarsnap, tarsnap-nightly]
+
+- name: "Enable nightly backups via systemd"
+  service: name=nightly-backups.timer enabled=yes state=started
+  tags: [tarsnap, tarsnap-nightly]
+

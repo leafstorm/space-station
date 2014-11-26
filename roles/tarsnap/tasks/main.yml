@@ -1,0 +1,33 @@
+---
+- name: "Install Tarsnap and Tarsnapper dependencies"
+  yum: name={{ item }} state=latest
+  tags: [packages, tarsnap]
+
+  with_items:
+  - glibc-devel
+  - openssl-devel
+  - zlib-devel
+  - e2fsprogs-devel
+  - PyYAML
+  - python-pip
+
+- name: "Install Tarsnap itself"
+  script: install-tarsnap {{ tarsnap_version }} {{ tarsnap_sha256 }} creates=/usr/local/bin/tarsnap
+  tags: [tarsnap]
+
+- name: "Tarsnap cache directory"
+  file: path=/var/lib/tarsnap-cache state=directory owner=root group=root mode=0700
+  tags: [tarsnap]
+
+- name: "Tarsnap key file (permission check)"
+  file: path=/root/tarsnap.key state=file owner=root group=root mode=0600
+  tags: [tarsnap]
+
+- name: "Tarsnap configuration file"
+  copy: src=tarsnap.conf dest=/usr/local/etc/tarsnap.conf owner=root group=root mode=0644
+  tags: [tarsnap]
+
+- name: "Install Tarsnapper"
+  pip: name=tarsnapper
+  tags: [tarsnap]
+
