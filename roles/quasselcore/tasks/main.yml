@@ -20,14 +20,19 @@
             creates=/home/quassel/config/quasselCert.pem
   tags: [quassel]
 
+- name: Permissions on SSL certificate
+  file: path=/home/quassel/config/quasselCert.pem state=file
+            owner=quassel group=quassel mode=0600
+  tags: [quassel]
+
 - name: Copy over systemd service file
   copy: src=quasselcore.service dest=/etc/systemd/system/quasselcore.service
-            owner=root group=root
+            owner=root group=root mode=0644
   tags: [quassel]
 
 - name: Copy over firewalld service file
   copy: src=quasselcore-firewalld-service.xml dest=/etc/firewalld/services/quasselcore.xml
-            owner=root group=root mode=0640
+            owner=root group=root mode=0644
   when: use_firewalld
   tags: [quassel]
 
