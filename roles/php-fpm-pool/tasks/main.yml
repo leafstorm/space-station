@@ -1,0 +1,12 @@
+---
+- name: "php-fpm pool file"
+  template: src=pool.conf dest=/etc/php-fpm.d/{{ pool }}.conf
+                owner=root group=root mode=0644
+  notify: [Restart php-fpm]
+  tags: [lep, php-fpm]
+
+- name: "php-fpm session directory"
+  file: path=/var/lib/php/sessions/{{ pool }}
+                state=directory owner={{ pool_user }} group={{ pool_group }} mode=0770
+  tags: [lep, php-fpm]
+

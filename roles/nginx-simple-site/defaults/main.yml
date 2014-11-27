@@ -1,0 +1,8 @@
+---
+alias:              default
+hostnames:          []
+fragment_directory: ~
+document_root:      /srv/www
+
+use_php:            false
+

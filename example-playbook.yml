@@ -8,14 +8,25 @@
     ssl_dn_prefix:  /C=US/O=Ghost Corporation
 
   roles:
+    # Basic infrastructure
     - firewalld
     - server-tools
     - server-secure
     - tarsnap
     - tarsnap-nightly
+
+    # User
     - role: user
       name: matthew
       full_name: Matthew Frazier
       email: leafstormrush@gmail.com
+
+    # Web server
+    - nginx
+    - php-fpm-pool
+    - role: nginx-simple-site
+      use_php: true
+
+    # Miscellaneous services
     - quasselcore
 

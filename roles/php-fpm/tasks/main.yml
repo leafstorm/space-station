@@ -1,0 +1,13 @@
+---
+- name: "Install php-fpm"
+  yum: name={{ item }} state=latest
+  tags: [lep, php-fpm, packages]
+
+  with_items:
+  - php
+  - php-fpm
+
+- name: "Start and enable php-fpm"
+  service: name=php-fpm state=started enabled=yes
+  tags: [lep, php-fpm]
+

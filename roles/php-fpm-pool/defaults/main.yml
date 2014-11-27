@@ -1,0 +1,8 @@
+---
+pool: www
+pool_user: nginx
+pool_group: nginx
+
+pool_socket_user: nginx
+pool_socket_group: nginx
+

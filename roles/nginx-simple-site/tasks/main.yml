@@ -1,0 +1,15 @@
+---
+- name: "Nginx server configuration file"
+  template: src=server.conf dest=/etc/nginx/conf.d/{{ alias }}-server.conf
+  notify: [Restart nginx]
+  tags: [lep, nginx-servers]
+
+- name: "Nginx server configuration fragment directory"
+  file: path={{ fragment_directory if fragment_directory is not none else '/etc/nginx/default.d' }}
+            state=directory owner=root group=root mode=0755
+  tags: [lep, nginx-servers]
+
+- name: "Nginx server document root"
+  file: path={{ document_root }} state=directory owner=root group=root mode=0755
+  tags: [lep, nginx-servers]
+

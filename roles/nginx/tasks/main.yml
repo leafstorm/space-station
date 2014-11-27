@@ -1,0 +1,13 @@
+---
+- name: "Install Nginx"
+  yum: name=nginx state=latest
+  tags: [lep, nginx, packages]
+
+- name: "Nginx main configuration file"
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+  tags: [lep, nginx]
+
+- name: "Start and enable Nginx"
+  service: name=nginx state=started enabled=yes
+  tags: [lep, nginx]
+
