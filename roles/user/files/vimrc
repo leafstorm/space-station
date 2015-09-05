@@ -1,0 +1,42 @@
+set nocompatible
+
+if &t_Co > 2 || has("gui_running")
+    set hlsearch        " highlight matches
+    syntax enable       " enable syntax highlighting
+endif
+
+set autoindent
+set backspace=eol,start,indent      " normal backspace
+set tabstop=8           " show tabs as 8 spaces
+set expandtab           " type spaces instead of tabs
+set softtabstop=4       " edit 4 spaces when you press tabs
+set shiftwidth=4        " edit 4 spaces when you press tabs, I think
+filetype indent plugin on           " load filetype-specific indent files
+
+set number              " line numbers!
+set ruler               " line and column!
+set showmatch           " show matching parentheses
+set linebreak           " wrap lines
+
+set wildmenu            " wildcard menu
+set showcmd             " show last command entered, for help
+set lazyredraw          " lazy screen drawing
+
+set incsearch           " search as you type
+
+set nobackup            " no backup files
+
+" KEY BINDINGS
+nnoremap B ^
+nnoremap E $
+nnoremap j gj
+nnoremap k gk
+
+nnoremap <leader>j <C-W>j
+nnoremap <leader>k <C-W>k
+nnoremap <leader>h <C-W>h
+nnoremap <leader>l <C-W>l
+
+" backslash-space to clear search highlighting
+nnoremap <leader><space> :nohlsearch<CR>
+

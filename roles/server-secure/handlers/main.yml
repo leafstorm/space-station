@@ -1,0 +1,4 @@
+---
+- name: Rebuild aliases.db
+  command: newaliases
+

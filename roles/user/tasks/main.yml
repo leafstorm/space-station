@@ -19,6 +19,7 @@
   - ackrc
   - config/fish
   - nanorc
+  - vimrc
   - tmux.conf
 
 - name: "Copy over templated user config files"

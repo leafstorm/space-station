@@ -2,7 +2,7 @@
 Description=Run Tarsnapper jobs for %i
 
 [Service]
-ExecStart=/usr/bin/tarsnapper -c /etc/tarsnapper/%i.yml make
+ExecStart=/usr/bin/tarsnapper -c /etc/tarsnapper.d/%i.yml make
 
 [Install]
 WantedBy=nightly-backups.target

@@ -19,8 +19,14 @@
   file: path=/var/lib/tarsnap-cache state=directory owner=root group=root mode=0700
   tags: [tarsnap]
 
-- name: "Tarsnap key file (permission check)"
+- name: "Check Tarsnap key file permissions"
+  stat: path=/root/tarsnap.key
+  register: tarsnap_key_stat
+  tags: [tarsnap]
+
+- name: "Ensure correct Tarsnap key file permissions"
   file: path=/root/tarsnap.key state=file owner=root group=root mode=0600
+  when: tarsnap_key_stat.stat.exists == true
   tags: [tarsnap]
 
 - name: "Tarsnap configuration file"

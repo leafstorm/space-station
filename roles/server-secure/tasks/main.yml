@@ -1,4 +1,8 @@
 ---
+- name: Add root alias
+  lineinfile: 'dest=/etc/aliases state=present regexp="^root:" line="root: {{ admin_email }}"'
+  notify: Rebuild aliases.db
+
 - name: Download logwatch and fail2ban
   yum: name={{ item }} state=latest
   tags: [security, packages]
